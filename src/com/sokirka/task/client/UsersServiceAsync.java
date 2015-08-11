@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface UsersServiceAsync {
     void getUsers(AsyncCallback<List<User>> async);
+
+    void addUser(User user, AsyncCallback<User> async);
 }

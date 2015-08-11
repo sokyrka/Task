@@ -29,4 +29,10 @@ public class UsersServiceImpl extends RemoteServiceServlet implements UsersServi
     public List<User> getUsers() {
         return userList;
     }
+
+    @Override
+    public User addUser(User user) {
+        userList.add(user);
+        return user;
+    }
 }

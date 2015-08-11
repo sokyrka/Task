@@ -12,4 +12,5 @@ import java.util.List;
 @RemoteServiceRelativePath("usersService")
 public interface UsersService extends RemoteService {
     List<User> getUsers();
+    User addUser(User user);
 }
