@@ -7,13 +7,13 @@ import com.google.gwt.cell.client.SelectionCell;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.*;
 import com.sokirka.task.client.presenter.UsersPresenter;
@@ -33,6 +33,7 @@ import java.util.Set;
 public class UsersView extends Composite implements UsersPresenter.Display {
 
     ListDataProvider<User> userDataProvider = new ListDataProvider<User>();
+
     private Set<User> selectedRows = new HashSet<User>();
     MultiSelectionModel<User> selectionModel = new MultiSelectionModel<User>(KEY_PROVIDER);
     public static ProvidesKey<User> KEY_PROVIDER = new ProvidesKey<User>() {
@@ -42,16 +43,17 @@ public class UsersView extends Composite implements UsersPresenter.Display {
         }
     };
 
-    private final Button addButton;
     final DataGrid<User> dataGrid;
     final CheckBox disableSelection;
-    final CheckBox cbCheckboxes;
+    final CheckBox disableCheckboxes;
     final Button buttonGo;
 
     public UsersView() {
         List<User> userList = Arrays.asList(new User(1, "Eugene", "Sokirka", "esokirka@gmail.com", Role.ADMIN),
                 new User(2, "John", "Dou", "jdou@yahoo.com", Role.USER),
                 new User(3, "Tom", "Smith", "tsmith@hotmail.com", Role.ADMIN));
+
+        userDataProvider.getList().addAll(userList);
 
         DecoratorPanel contentTableDecorator = new DecoratorPanel();
         initWidget(contentTableDecorator);
@@ -61,7 +63,7 @@ public class UsersView extends Composite implements UsersPresenter.Display {
         contentTableDecorator.add(panel);
 
         disableSelection = new CheckBox("Disable Selection");
-        cbCheckboxes = new CheckBox();
+        disableCheckboxes = new CheckBox("Disable Checkboxes");
         buttonGo = new Button("Go");
         buttonGo.setStyleName("btn-go");
         buttonGo.setEnabled(false);
@@ -81,7 +83,7 @@ public class UsersView extends Composite implements UsersPresenter.Display {
 
                     @Override
                     public void render(Cell.Context context, User object, SafeHtmlBuilder sb) {
-                        if (cbCheckboxes.getValue()) {
+                        if (disableCheckboxes.getValue()) {
                             if (selectedRows.contains(object))
                                 sb.appendHtmlConstant(StyleUtils.DISABLED_CHECKED_CHECKBOX);
                             else
@@ -90,6 +92,7 @@ public class UsersView extends Composite implements UsersPresenter.Display {
                             super.render(context, object, sb);
                     }
                 };
+
         checkColumn.setFieldUpdater(new FieldUpdater<User, Boolean>() {
             @Override
             public void update(int index, User object, Boolean value) {
@@ -138,13 +141,15 @@ public class UsersView extends Composite implements UsersPresenter.Display {
         UsersCheckBoxHeader usersCheckBoxHeader = new UsersCheckBoxHeader(selectedRows, userDataProvider, dataGrid, buttonGo) {
             @Override
             public void render(Cell.Context context, SafeHtmlBuilder sb) {
-                if (cbCheckboxes.getValue()) {
-                    if (selectedRows.size() == userDataProvider.getList().size())
+                if (disableCheckboxes.getValue()) {
+                    if (selectedRows.size() == userDataProvider.getList().size()) {
                         sb.appendHtmlConstant(StyleUtils.DISABLED_CHECKED_CHECKBOX);
-                    else
+                    } else {
                         sb.appendHtmlConstant(StyleUtils.DISABLED_CHECKBOX);
-                } else
+                    }
+                } else {
                     super.render(context, sb);
+                }
             }
         };
 
@@ -153,8 +158,6 @@ public class UsersView extends Composite implements UsersPresenter.Display {
         dataGrid.addColumn(textColumnID, "ID");
         dataGrid.addColumn(textColumnName, "Name");
         dataGrid.addColumn(categoryColumn, "Role");
-
-
 
         final Label labelEmail = new Label("Email : ");
         final Label labelSurName = new Label("Surname : ");
@@ -174,23 +177,23 @@ public class UsersView extends Composite implements UsersPresenter.Display {
         horizontalWestPanel.add(verticalLeftPanel);
         horizontalWestPanel.add(verticalRightPanel);
 
-        CheckBox disableCheckbox = new CheckBox("Disable Checkbox");
-
         VerticalPanel verticalEastPanel = new VerticalPanel();
-        verticalEastPanel.add(disableCheckbox);
+        verticalEastPanel.add(disableCheckboxes);
         verticalEastPanel.add(this.disableSelection);
         verticalEastPanel.add(buttonGo);
 
-        addButton = new Button("Click");
         panel.addNorth(dataGrid, 120);
         panel.addWest(horizontalWestPanel, 242);
         panel.addEast(verticalEastPanel, 242);
 
-
         buttonGo.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-
+                String result = "";
+                for(User user : selectedRows){
+                    result += "ID - " + user.getId() + " \n";
+                }
+                Window.alert(result);
             }
         });
 
@@ -206,7 +209,7 @@ public class UsersView extends Composite implements UsersPresenter.Display {
             }
         });
 
-        cbCheckboxes.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
+        disableCheckboxes.addValueChangeHandler(new ValueChangeHandler<Boolean>() {
             @Override
             public void onValueChange(ValueChangeEvent<Boolean> event) {
                 dataGrid.redraw();
@@ -225,13 +228,6 @@ public class UsersView extends Composite implements UsersPresenter.Display {
                 dataGrid.redraw();
             }
         });
-
-    }
-
-
-    @Override
-    public HasClickHandlers getAddButton() {
-        return addButton;
     }
 
     public Widget asWidget() {

@@ -5,8 +5,6 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.sokirka.task.client.event.AddUserEvent;
-import com.sokirka.task.client.event.AddUserEventHandler;
 import com.sokirka.task.client.presenter.Presenter;
 import com.sokirka.task.client.presenter.UsersPresenter;
 import com.sokirka.task.client.view.UsersView;
@@ -28,13 +26,6 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
 
     public void bind() {
         History.addValueChangeHandler(this);
-
-        eventBus.addHandler(AddUserEvent.TYPE, new AddUserEventHandler() {
-            @Override
-            public void onAddUser(AddUserEvent event) {
-                doAddNewUser();
-            }
-        });
     }
 
     @Override
@@ -47,10 +38,6 @@ public class AppController implements Presenter, ValueChangeHandler<String> {
         else {
             History.fireCurrentHistoryState();
         }
-    }
-
-    private void doAddNewUser() {
-        History.newItem("add");
     }
 
     @Override
