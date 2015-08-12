@@ -17,7 +17,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.*;
 import com.sokirka.task.client.presenter.UsersPresenter;
-import com.sokirka.task.client.view.custom.StyleUtils;
+import com.sokirka.task.client.view.custom.CheckboxStyle;
 import com.sokirka.task.client.view.custom.UsersCheckBoxHeader;
 import com.sokirka.task.shared.Role;
 import com.sokirka.task.shared.User;
@@ -85,9 +85,9 @@ public class UsersView extends Composite implements UsersPresenter.Display {
                     public void render(Cell.Context context, User object, SafeHtmlBuilder sb) {
                         if (disableCheckboxes.getValue()) {
                             if (selectedRows.contains(object))
-                                sb.appendHtmlConstant(StyleUtils.DISABLED_CHECKED_CHECKBOX);
+                                sb.appendHtmlConstant(CheckboxStyle.DISABLED_CHECKED_CHECKBOX_STYLE);
                             else
-                                sb.appendHtmlConstant(StyleUtils.DISABLED_CHECKBOX);
+                                sb.appendHtmlConstant(CheckboxStyle.DISABLED_CHECKBOX_STYLE);
                         } else
                             super.render(context, object, sb);
                     }
@@ -143,9 +143,9 @@ public class UsersView extends Composite implements UsersPresenter.Display {
             public void render(Cell.Context context, SafeHtmlBuilder sb) {
                 if (disableCheckboxes.getValue()) {
                     if (selectedRows.size() == userDataProvider.getList().size()) {
-                        sb.appendHtmlConstant(StyleUtils.DISABLED_CHECKED_CHECKBOX);
+                        sb.appendHtmlConstant(CheckboxStyle.DISABLED_CHECKED_CHECKBOX_STYLE);
                     } else {
-                        sb.appendHtmlConstant(StyleUtils.DISABLED_CHECKBOX);
+                        sb.appendHtmlConstant(CheckboxStyle.DISABLED_CHECKBOX_STYLE);
                     }
                 } else {
                     super.render(context, sb);
