@@ -1,4 +1,4 @@
-package com.sokirka.task.view;
+package com.sokirka.task.client.view;
 
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.CheckboxCell;
@@ -16,9 +16,9 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.*;
-import com.sokirka.task.presenter.UsersPresenter;
-import com.sokirka.task.view.custom.CheckboxStyle;
-import com.sokirka.task.view.custom.UsersCheckBoxHeader;
+import com.sokirka.task.client.presenter.UsersPresenter;
+import com.sokirka.task.client.view.custom.CheckboxStyle;
+import com.sokirka.task.client.view.custom.UsersCheckBoxHeader;
 import com.sokirka.task.model.Role;
 import com.sokirka.task.model.User;
 

@@ -4,9 +4,9 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.HasWidgets;
-import com.sokirka.task.presenter.Presenter;
-import com.sokirka.task.presenter.UsersPresenter;
-import com.sokirka.task.view.UsersView;
+import com.sokirka.task.client.presenter.Presenter;
+import com.sokirka.task.client.presenter.UsersPresenter;
+import com.sokirka.task.client.view.UsersView;
 
 /**
  * @author Eugine Sokirka.

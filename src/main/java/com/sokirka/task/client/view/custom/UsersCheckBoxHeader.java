@@ -1,4 +1,4 @@
-package com.sokirka.task.view.custom;
+package com.sokirka.task.client.view.custom;
 
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.CheckboxCell;
