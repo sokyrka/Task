@@ -4,6 +4,16 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <servlet>
+        <servlet-name>usersServiceServlet</servlet-name>
+        <servlet-class>com.sokirka.task.server.UsersServiceImpl</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>usersServiceServlet</servlet-name>
+        <url-pattern>/users/usersService</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>Users.html</welcome-file>
     </welcome-file-list>
