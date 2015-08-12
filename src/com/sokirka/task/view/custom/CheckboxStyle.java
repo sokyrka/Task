@@ -1,4 +1,4 @@
-package com.sokirka.task.client.view.custom;
+package com.sokirka.task.view.custom;
 
 /**
  * @author Eugine Sokirka.

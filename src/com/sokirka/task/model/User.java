@@ -1,4 +1,4 @@
-package com.sokirka.task.shared;
+package com.sokirka.task.model;
 
 import java.io.Serializable;
 

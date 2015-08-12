@@ -7,7 +7,8 @@
     <entry-point class='com.sokirka.task.client.Users'/>
 
     <source path='client'/>
-    <source path='shared'/>
-    <source path='server'/>
+    <source path='model'/>
+    <source path='view'/>
+    <source path='presenter'/>
 
 </module>

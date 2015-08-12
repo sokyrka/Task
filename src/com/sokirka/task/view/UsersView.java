@@ -1,4 +1,4 @@
-package com.sokirka.task.client.view;
+package com.sokirka.task.view;
 
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.CheckboxCell;
@@ -16,11 +16,11 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.*;
-import com.sokirka.task.client.presenter.UsersPresenter;
-import com.sokirka.task.client.view.custom.CheckboxStyle;
-import com.sokirka.task.client.view.custom.UsersCheckBoxHeader;
-import com.sokirka.task.shared.Role;
-import com.sokirka.task.shared.User;
+import com.sokirka.task.presenter.UsersPresenter;
+import com.sokirka.task.view.custom.CheckboxStyle;
+import com.sokirka.task.view.custom.UsersCheckboxHeader;
+import com.sokirka.task.model.Role;
+import com.sokirka.task.model.User;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -138,7 +138,7 @@ public class UsersView extends Composite implements UsersPresenter.Display {
             }
         });
 
-        UsersCheckBoxHeader usersCheckBoxHeader = new UsersCheckBoxHeader(selectedRows, userDataProvider, dataGrid, buttonGo) {
+        UsersCheckboxHeader usersCheckboxHeader = new UsersCheckboxHeader(selectedRows, userDataProvider, dataGrid, buttonGo) {
             @Override
             public void render(Cell.Context context, SafeHtmlBuilder sb) {
                 if (disableCheckboxes.getValue()) {
@@ -153,7 +153,7 @@ public class UsersView extends Composite implements UsersPresenter.Display {
             }
         };
 
-        dataGrid.addColumn(checkColumn, usersCheckBoxHeader);
+        dataGrid.addColumn(checkColumn, usersCheckboxHeader);
         dataGrid.setColumnWidth(checkColumn, 40, Style.Unit.PX);
         dataGrid.addColumn(textColumnID, "ID");
         dataGrid.addColumn(textColumnName, "Name");

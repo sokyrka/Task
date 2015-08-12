@@ -1,4 +1,4 @@
-package com.sokirka.task.client.presenter;
+package com.sokirka.task.presenter;
 
 import com.google.gwt.user.client.ui.HasWidgets;
 
