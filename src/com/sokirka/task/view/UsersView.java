@@ -18,7 +18,7 @@ import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.*;
 import com.sokirka.task.presenter.UsersPresenter;
 import com.sokirka.task.view.custom.CheckboxStyle;
-import com.sokirka.task.view.custom.UsersCheckboxHeader;
+import com.sokirka.task.view.custom.UsersCheckBoxHeader;
 import com.sokirka.task.model.Role;
 import com.sokirka.task.model.User;
 
@@ -138,7 +138,7 @@ public class UsersView extends Composite implements UsersPresenter.Display {
             }
         });
 
-        UsersCheckboxHeader usersCheckboxHeader = new UsersCheckboxHeader(selectedRows, userDataProvider, dataGrid, buttonGo) {
+        UsersCheckBoxHeader usersCheckBoxHeader = new UsersCheckBoxHeader(selectedRows, userDataProvider, dataGrid, buttonGo) {
             @Override
             public void render(Cell.Context context, SafeHtmlBuilder sb) {
                 if (disableCheckboxes.getValue()) {
@@ -153,7 +153,7 @@ public class UsersView extends Composite implements UsersPresenter.Display {
             }
         };
 
-        dataGrid.addColumn(checkColumn, usersCheckboxHeader);
+        dataGrid.addColumn(checkColumn, usersCheckBoxHeader);
         dataGrid.setColumnWidth(checkColumn, 40, Style.Unit.PX);
         dataGrid.addColumn(textColumnID, "ID");
         dataGrid.addColumn(textColumnName, "Name");
