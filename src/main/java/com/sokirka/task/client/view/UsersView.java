@@ -33,15 +33,14 @@ import java.util.Set;
 public class UsersView extends Composite implements UsersPresenter.Display {
 
     ListDataProvider<User> userDataProvider = new ListDataProvider<User>();
-
-    private Set<User> selectedRows = new HashSet<User>();
-    MultiSelectionModel<User> selectionModel = new MultiSelectionModel<User>(KEY_PROVIDER);
+    private Set<User> selectedUsers = new HashSet<User>();
     public static ProvidesKey<User> KEY_PROVIDER = new ProvidesKey<User>() {
         @Override
         public Object getKey(User item) {
             return item.getId();
         }
     };
+    MultiSelectionModel<User> selectionModel = new MultiSelectionModel<User>(KEY_PROVIDER);
 
     final DataGrid<User> dataGrid;
     final CheckBox disableSelection;
@@ -49,6 +48,7 @@ public class UsersView extends Composite implements UsersPresenter.Display {
     final Button buttonGo;
 
     public UsersView() {
+
         List<User> userList = Arrays.asList(new User(1, "Eugene", "Sokirka", "esokirka@gmail.com", Role.ADMIN),
                 new User(2, "John", "Dou", "jdou@yahoo.com", Role.USER),
                 new User(3, "Tom", "Smith", "tsmith@hotmail.com", Role.ADMIN));
@@ -78,13 +78,13 @@ public class UsersView extends Composite implements UsersPresenter.Display {
                 new Column<User, Boolean>(new CheckboxCell(true, false)) {
                     @Override
                     public Boolean getValue(User object) {
-                        return selectedRows.contains(object);
+                        return selectedUsers.contains(object);
                     }
 
                     @Override
                     public void render(Cell.Context context, User object, SafeHtmlBuilder sb) {
                         if (disableCheckboxes.getValue()) {
-                            if (selectedRows.contains(object))
+                            if (selectedUsers.contains(object))
                                 sb.appendHtmlConstant(CheckboxStyle.DISABLED_CHECKED_CHECKBOX_STYLE);
                             else
                                 sb.appendHtmlConstant(CheckboxStyle.DISABLED_CHECKBOX_STYLE);
@@ -97,10 +97,10 @@ public class UsersView extends Composite implements UsersPresenter.Display {
             @Override
             public void update(int index, User object, Boolean value) {
                 if (value)
-                    selectedRows.add(object);
+                    selectedUsers.add(object);
                 else
-                    selectedRows.remove(object);
-                buttonGo.setEnabled(!selectedRows.isEmpty());
+                    selectedUsers.remove(object);
+                buttonGo.setEnabled(!selectedUsers.isEmpty());
                 dataGrid.redraw();
             }
         });
@@ -138,11 +138,11 @@ public class UsersView extends Composite implements UsersPresenter.Display {
             }
         });
 
-        UsersCheckBoxHeader usersCheckBoxHeader = new UsersCheckBoxHeader(selectedRows, userDataProvider, dataGrid, buttonGo) {
+        UsersCheckBoxHeader usersCheckBoxHeader = new UsersCheckBoxHeader(selectedUsers, userDataProvider, dataGrid, buttonGo) {
             @Override
             public void render(Cell.Context context, SafeHtmlBuilder sb) {
                 if (disableCheckboxes.getValue()) {
-                    if (selectedRows.size() == userDataProvider.getList().size()) {
+                    if (selectedUsers.size() == userDataProvider.getList().size()) {
                         sb.appendHtmlConstant(CheckboxStyle.DISABLED_CHECKED_CHECKBOX_STYLE);
                     } else {
                         sb.appendHtmlConstant(CheckboxStyle.DISABLED_CHECKBOX_STYLE);
@@ -190,7 +190,7 @@ public class UsersView extends Composite implements UsersPresenter.Display {
             @Override
             public void onClick(ClickEvent event) {
                 String result = "";
-                for(User user : selectedRows){
+                for(User user : selectedUsers){
                     result += "ID - " + user.getId() + " \n";
                 }
                 Window.alert(result);

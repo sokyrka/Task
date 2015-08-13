@@ -9,22 +9,20 @@
     <version>1.0</version>
     <packaging>war</packaging>
     <name>Task</name>
-    <description>Test Task</description>
+    <description>Task</description>
 
     <properties>
         <gwt.version>2.7.0</gwt.version>
-
         <gwt-maven-plugin.version>2.5.1</gwt-maven-plugin.version>
         <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
         <target.jdk>1.7</target.jdk>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
         <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
     </properties>
 
     <build>
-        <finalName>Test Task</finalName>
+        <finalName>Task</finalName>
         <outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
         <resources>
             <resource>
@@ -69,7 +67,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <webXml>web/WEB-INF/web.xml</webXml>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
