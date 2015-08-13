@@ -13,11 +13,11 @@ import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.DataGrid;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.view.client.*;
 import com.sokirka.task.client.presenter.UsersPresenter;
 import com.sokirka.task.client.view.custom.CheckboxStyle;
+import com.sokirka.task.client.view.custom.SelectedUsersPopup;
 import com.sokirka.task.client.view.custom.UsersCheckBoxHeader;
 import com.sokirka.task.model.Role;
 import com.sokirka.task.model.User;
@@ -183,17 +183,15 @@ public class UsersView extends Composite implements UsersPresenter.Display {
         verticalEastPanel.add(buttonGo);
 
         panel.addNorth(dataGrid, 120);
-        panel.addWest(horizontalWestPanel, 242);
-        panel.addEast(verticalEastPanel, 242);
+        panel.addWest(horizontalWestPanel, 246);
+        panel.add(verticalEastPanel);
 
         buttonGo.addClickHandler(new ClickHandler() {
             @Override
             public void onClick(ClickEvent event) {
-                String result = "";
-                for(User user : selectedUsers){
-                    result += "ID - " + user.getId() + " \n";
-                }
-                Window.alert(result);
+                SelectedUsersPopup selectedUsersPopup = new SelectedUsersPopup(selectedUsers);
+                selectedUsersPopup.setPopupPosition(600, 40);
+                selectedUsersPopup.show();
             }
         });
 
